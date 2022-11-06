@@ -1,11 +1,11 @@
-package db.manager;
+package usersCityDB.manager;
 
 import db.connectionPool.BasicConnectionPool;
-import db.models.City;
-import db.models.User;
+import usersCityDB.models.City;
+import usersCityDB.models.User;
 
-import static db.queries.Queries.*;
-import static db.fields.Fields.*;
+import static usersCityDB.queries.Queries.*;
+import static usersCityDB.fields.Fields.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class DBManager {
         Properties properties = new Properties();
         String url = null;
 
-        try(FileInputStream fis = new FileInputStream("app.properties")) {
+        try(FileInputStream fis = new FileInputStream("database.properties")) {
             properties.load(fis);
             url = properties.getProperty("connection.url");
         } catch (IOException e) {
@@ -48,38 +48,42 @@ public class DBManager {
 
     public List<User> findAllUsers() {
         List<User> listOfUsers = new ArrayList<>();
-        try(Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(FIND_ALL_USERS)) {
-            ResultSet res = statement.executeQuery();
+        Connection connection = connectionPool.getConnection();
+        try(Statement statement = connection.createStatement()) {
+            ResultSet res = statement.executeQuery(FIND_ALL_USERS);
             while(res.next()) {
                 listOfUsers.add(mapUser(res));
             }
             connectionPool.releaseConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return listOfUsers;
     }
 
     public List<City> findAllCities() {
         List<City> listOfCities = new ArrayList<>();
-        try(Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(FIND_ALL_CITIES)) {
-            ResultSet res = statement.executeQuery();
+        Connection connection = connectionPool.getConnection();
+        try(Statement statement = connection.createStatement()) {
+            ResultSet res = statement.executeQuery(FIND_ALL_CITIES);
             while(res.next()) {
                 listOfCities.add(mapCity(res));
             }
             connectionPool.releaseConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return listOfCities;
     }
     
     public List<String> getUsersCity(User user) {
         List<String> usersCity = new ArrayList<>();
-        try(Connection connection = connectionPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement(FIND_USERS_CITY)) {
+        Connection connection = connectionPool.getConnection();
+        try(PreparedStatement statement = connection.prepareStatement(FIND_USERS_CITY);) {
             statement.setInt(1, user.getId());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -89,6 +93,8 @@ public class DBManager {
             connectionPool.releaseConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return usersCity;
     }

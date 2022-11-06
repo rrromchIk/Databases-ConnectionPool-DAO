@@ -1,4 +1,4 @@
-package db.fields;
+package usersCityDB.fields;
 
 public interface Fields {
     String CITY_ID = "id";

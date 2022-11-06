@@ -1,4 +1,4 @@
-package db.queries;
+package usersCityDB.queries;
 
 public interface Queries {
     String FIND_ALL_USERS = "SELECT * FROM user";

@@ -1,8 +1,8 @@
-package main;
+package usersCityDB.main;
 
-import db.manager.DBManager;
-import db.models.City;
-import db.models.User;
+import usersCityDB.manager.DBManager;
+import usersCityDB.models.City;
+import usersCityDB.models.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +20,5 @@ public class Main {
         System.out.println(usersCity);
         System.out.println(listOfUsers);
         System.out.println(listOfCities);
-        System.out.println(listOfUsers);
     }
 }
