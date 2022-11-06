@@ -1,4 +1,4 @@
-package usersCityDB.models;
+package usersCityDB.model;
 
 import java.util.Objects;
 import java.util.StringJoiner;

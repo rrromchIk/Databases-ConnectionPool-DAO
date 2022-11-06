@@ -1,7 +1,7 @@
 package loginDB.main;
 
 import loginDB.manager.DBManager;
-import loginDB.models.User;
+import loginDB.model.User;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class Main {
         System.out.println("Welcome to my program. Here you can manage database of users:");
         while(true) {
             System.out.println("\n1 - check all users\n2 - add user\n3 - delete user" +
-                    "\n4 - get user by login & password\n5 - exit");
+                    "\n4 - get user\n5 - exit");
             System.out.print("Enter choice: ");
             int choice = scanner.nextInt();
             switch (choice) {
@@ -23,13 +23,13 @@ public class Main {
                     dbManager.addUser(getUserFromKeyBoard(scanner));
                     break;
                 case 3:
-                    if(!dbManager.deleteUser(getUserLoginFromKeyBoard(scanner))) {
+                    String[] data = getLoginAndPasswordFromKeyBoard(scanner);
+                    if(!dbManager.deleteUser(data[0], data[1])) {
                         System.err.println("No such user!");
                     }
                     break;
                 case 4:
-                    String[] data = getLoginAndPasswordFromKeyBoard(scanner);
-                    System.out.println(dbManager.getUser(data[0], data[1]));
+                    System.out.println(dbManager.getUser(getUserLoginFromKeyBoard(scanner)));
                     break;
                 case 5:
                     dbManager.shutdown();
@@ -57,7 +57,7 @@ public class Main {
 
     private static String getUserLoginFromKeyBoard(Scanner scanner) {
         scanner.nextLine();
-        System.out.print("Enter login of user to delete: ");
+        System.out.print("Enter login of user: ");
         String login = scanner.nextLine();
         return login;
     }

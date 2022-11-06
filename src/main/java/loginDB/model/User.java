@@ -1,4 +1,4 @@
-package loginDB.models;
+package loginDB.model;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -13,7 +13,7 @@ public class User {
         return new User(0, login, password, email);
     }
 
-    public User(int id, String login, String password, String email) {
+    private User(int id, String login, String password, String email) {
         this.id = id;
         this.login = login;
         this.password = password;

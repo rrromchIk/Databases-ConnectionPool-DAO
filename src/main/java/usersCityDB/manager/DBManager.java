@@ -1,8 +1,8 @@
 package usersCityDB.manager;
 
 import db.connectionPool.BasicConnectionPool;
-import usersCityDB.models.City;
-import usersCityDB.models.User;
+import usersCityDB.model.City;
+import usersCityDB.model.User;
 
 import static usersCityDB.queries.Queries.*;
 import static usersCityDB.fields.Fields.*;

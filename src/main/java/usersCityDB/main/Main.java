@@ -1,8 +1,8 @@
 package usersCityDB.main;
 
 import usersCityDB.manager.DBManager;
-import usersCityDB.models.City;
-import usersCityDB.models.User;
+import usersCityDB.model.City;
+import usersCityDB.model.User;
 
 import java.util.Collection;
 import java.util.List;
